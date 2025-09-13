@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsEnum,
   IsInt,
-  Min,
   Max,
   IsUrl,
   IsArray,
@@ -21,13 +20,14 @@ export class CreateMovieDto {
   @IsString()
   description?: string;
 
-  @IsEnum(Genre)
-  genre: Genre;
+  @IsOptional()
+  @IsArray()
+  @IsEnum(Genre, { each: true })
+  genres?: Genre[];
 
   @IsInt()
-  @Min(1900)
   @Max(new Date().getFullYear())
-  year: number;
+  releaseYear: number;
 
   @IsOptional()
   @IsUrl()
@@ -51,6 +51,11 @@ export class CreateMovieDto {
   director?: string;
 
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  countries?: string[];
+
+  @IsOptional()
   @IsInt()
   durationMinutes?: number; // مدت زمان فیلم به دقیقه
 
@@ -58,4 +63,7 @@ export class CreateMovieDto {
   @IsArray()
   @IsString({ each: true })
   tags?: string[];
+
+  @IsOptional()
+  isPremium?: boolean;
 }

@@ -37,6 +37,7 @@ export class AdminController {
 
   @Post('movies')
   createMovie(@Body() createMovieDto: CreateMovieDto): Promise<Movie> {
+    console.log(createMovieDto);
     return this.adminService.createMovie(createMovieDto);
   }
 

@@ -17,8 +17,16 @@ export class ActorService {
     return await this.actorRepository.save(actor);
   }
 
-  async findAll(): Promise<Actor[]> {
-    return this.actorRepository.find({ relations: ['movies'] });
+  async findAll(name?: string): Promise<Actor[]> {
+    const query = this.actorRepository
+      .createQueryBuilder('actor')
+      .leftJoinAndSelect('actor.movies', 'movie');
+
+    if (name) {
+      query.where('actor.name ILIKE :name', { name: `%${name}%` });
+    }
+    query.select(['actor.name', 'actor.photoUrl']);
+    return query.getMany();
   }
 
   async findById(id: string): Promise<Actor> {

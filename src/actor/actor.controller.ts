@@ -8,6 +8,7 @@ import {
   Param,
   UseGuards,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common';
 import { ActorService } from './actor.service';
 import { CreateActorDto } from './dto/create-actor.dto';
@@ -22,8 +23,8 @@ export class ActorController {
   constructor(private readonly actorService: ActorService) {}
 
   @Get()
-  findAll() {
-    return this.actorService.findAll();
+  findAll(@Query('name') name?: string) {
+    return this.actorService.findAll(name);
   }
 
   @Get(':id')

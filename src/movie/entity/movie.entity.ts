@@ -26,8 +26,14 @@ export class Movie {
   @Column({ nullable: true })
   releaseYear?: number;
 
+  @Column({ nullable: true })
+  durationMinutes?: number;
+
   @Column('simple-array', { nullable: true })
   genres?: string[];
+
+  @Column('simple-array', { nullable: true })
+  countries?: string[];
 
   @ManyToMany(() => Actor, (actor) => actor.movies, { cascade: true })
   @JoinTable()
@@ -36,11 +42,11 @@ export class Movie {
   @Column({ default: 0 })
   viewsCount: number;
 
-  @Column({ nullable: false, default: '' })
-  videoUrl: string;
+  @Column({ nullable: true })
+  videoKey: string;
 
-  @Column({ nullable: false, default: '' })
-  thumbnailUrl: string;
+  @Column({ nullable: true })
+  thumbnailKey: string;
 
   @Column({ default: false })
   isPremium: boolean;
