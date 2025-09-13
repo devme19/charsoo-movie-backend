@@ -119,8 +119,8 @@ export class MovieMediaController {
       console.log('COMPLETE request:', body);
       // تکمیل آپلود ویدیو
       const videoUpload = await this.b2Service.completeMultipartUpload(
-        body.key,
         body.uploadId,
+        body.key,
         body.parts,
       );
       console.log('COMPLETE response from B2:', videoUpload);
